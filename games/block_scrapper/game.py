@@ -8,7 +8,7 @@ SCREEN = Rect(0, 0, 400, 400)
 
 
 class Paddle(pygame.sprite.Sprite):
-    def __int__(self, filename):
+    def __init__(self, filename):
         # todo: fix RecursionError of which below line is case
         pygame.sprite.Sprite.__init__(self, self.containers)
         self.image = pygame.image.load(filename).convert()
