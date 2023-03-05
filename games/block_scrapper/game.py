@@ -22,24 +22,12 @@ class Paddle(pygame.sprite.Sprite):
         self.rect.clamp_ip(SCREEN)
 
 
-# ブロックのクラス
-class Block(pygame.sprite.Sprite):
-    def __init__(self, filename, x, y):
-        pygame.sprite.Sprite.__init__(self, self.containers)
-        self.image = pygame.image.load(filename).convert()
-        self.rect = self.image.get_rect()
-        # ブロックの左上座標
-        self.rect.left = SCREEN.left + x * self.rect.width
-        self.rect.top = SCREEN.top + y * self.rect.height
-
-
-# ball class
 class Ball(pygame.sprite.Sprite):
     speed = 10
     angle_left = 135
     angle_right = 45
 
-    def __init__(self, filename, paddle, blocks):
+    def __init__(self, filename, paddle, blocks, score, speed, angle_left, angle_right):
         pygame.sprite.Sprite.__init__(self, self.containers)
         self.image = pygame.image.load(filename).convert()
         self.rect = self.image.get_rect()
@@ -47,7 +35,11 @@ class Ball(pygame.sprite.Sprite):
         self.paddle = paddle
         self.blocks = blocks
         self.update = self.start
+        self.score = score
         self.hit = 0
+        self.speed = speed
+        self.angle_left = angle_left
+        self.angle_right = angle_right
 
     def start(self):
 
@@ -83,38 +75,80 @@ class Ball(pygame.sprite.Sprite):
             angle = math.radians(y)  # 反射角度
             self.dx = self.speed * math.cos(angle)
             self.dy = -self.speed * math.sin(angle)
+            self.paddle_sound.play()
+
         # ボールを落とした場合
         if self.rect.top > SCREEN.bottom:
             self.update = self.start  # ボールを初期状態に
+            self.gameover_sound.play()
             self.hit = 0
+            self.score.add_score(-100)
 
         # ボールと衝突したブロックリストを取得
         blocks_collided = pygame.sprite.spritecollide(self, self.blocks, True)
         if blocks_collided:  # 衝突ブロックがある場合
             oldrect = self.rect
             for block in blocks_collided:
+
                 # ボールが左から衝突
                 if oldrect.left < block.rect.left < oldrect.right < block.rect.right:
                     self.rect.right = block.rect.left
                     self.dx = -self.dx
+
                 # ボールが右から衝突
                 if block.rect.left < oldrect.left < block.rect.right < oldrect.right:
                     self.rect.left = block.rect.right
                     self.dx = -self.dx
+
                 # ボールが上から衝突
                 if oldrect.top < block.rect.top < oldrect.bottom < block.rect.bottom:
                     self.rect.bottom = block.rect.top
                     self.dy = -self.dy
+
                 # ボールが下から衝突
                 if block.rect.top < oldrect.top < block.rect.bottom < oldrect.bottom:
                     self.rect.top = block.rect.bottom
                     self.dy = -self.dy
+
+                self.block_sound.play()
                 self.hit += 1
+                self.speed += 0.01
+                self.score.add_score(self.hit * 10)
+
+
+# ブロックのクラス
+class Block(pygame.sprite.Sprite):
+    def __init__(self, filename, x, y):
+        pygame.sprite.Sprite.__init__(self, self.containers)
+        self.image = pygame.image.load(filename).convert()
+        self.rect = self.image.get_rect()
+        # ブロックの左上座標
+        self.rect.left = SCREEN.left + x * self.rect.width
+        self.rect.top = SCREEN.top + y * self.rect.height
+
+
+class Score:
+    def __init__(self, x, y):
+        self.sysfont = pygame.font.SysFont(None, 20)
+        self.score = 0
+        (self.x, self.y) = (x, y)
+
+    def draw(self, screen):
+        img = self.sysfont.render("SCORE:"+str(self.score), True, (255,255,250))
+        screen.blit(img, (self.x, self.y))
+
+    def add_score(self, x):
+        self.score += x
 
 
 def main():
     pygame.init()
     screen = pygame.display.set_mode(SCREEN.size)
+
+    # add sounds to Ball class
+    Ball.paddle_sound = pygame.mixer.Sound('music/poka.mp3')
+    Ball.block_sound = pygame.mixer.Sound('music/poyo.mp3')
+    Ball.gameover_sound = pygame.mixer.Sound('music/falling1a.mp3')
 
     # 描画用のスプライトグループ
     group = pygame.sprite.RenderUpdates()
@@ -132,7 +166,8 @@ def main():
     for x in range(1, 15):
         for y in range(1, 11):
             Block("image/block.png", x, y)
-    Ball("image/ball.png", paddle, blocks)
+    score = Score(10, 10)
+    Ball("image/ball.png", paddle, blocks, score, 5, 135, 45)
 
     clock = pygame.time.Clock()
 
@@ -141,6 +176,7 @@ def main():
         screen.fill((0, 20, 0))
         group.update()
         group.draw(screen)
+        score.draw(screen)
         pygame.display.update()
         for event in pygame.event.get():
             if event.type == QUIT:
