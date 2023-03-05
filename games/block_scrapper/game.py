@@ -137,7 +137,7 @@ def main():
     clock = pygame.time.Clock()
 
     while (1):
-        clock.tick(10)
+        clock.tick(50)
         screen.fill((0, 20, 0))
         group.update()
         group.draw(screen)
