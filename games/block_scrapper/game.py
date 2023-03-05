@@ -45,10 +45,10 @@ def main():
     Block.containers = group, blocks
 
     # create paddle and blocks
-    paddle = Paddle("paddle.png")
+    paddle = Paddle("image/paddle.png")
     for x in range(1, 15):
         for y in range(1, 11):
-            Block("block.png", x, y)
+            Block("image/block.png", x, y)
     clock = pygame.time.Clock()
 
     while (1):
