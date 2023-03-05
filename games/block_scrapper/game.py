@@ -35,7 +35,7 @@ class Block(pygame.sprite.Sprite):
 
 # ball class
 class Ball(pygame.sprite.Sprite):
-    speed = 5
+    speed = 10
     angle_left = 135
     angle_right = 45
 
