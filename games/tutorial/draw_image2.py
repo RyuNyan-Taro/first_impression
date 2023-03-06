@@ -10,9 +10,9 @@ def main():
     screen = pygame.display.set_mode(SCREEN_SIZE)
     pygame.display.set_caption('clear_backscreen')
 
-    planeimg = pygame.image.load('plane.png').convert()
+    planeimg = pygame.image.load('image/plane.png').convert()
 
-    planeimg2 = pygame.image.load('plane.png').convert()
+    planeimg2 = pygame.image.load('image/plane.png').convert()
     colorkey = planeimg2.get_at((0, 0))
     planeimg2.set_colorkey(colorkey, RLEACCEL)
 
@@ -25,3 +25,7 @@ def main():
         for event in pygame.event.get():
             if event.type == QUIT:
                 sys.exit()
+
+
+if __name__ == '__main__':
+    main()
