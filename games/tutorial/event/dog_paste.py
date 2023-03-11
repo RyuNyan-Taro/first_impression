@@ -11,9 +11,9 @@ def main():
     pygame.display.set_caption(u'dogs_stamp')
 
     # image
-    backimg = pygame.image.load('image/moriyama.jpg').convert()
-    sielimg = pygame.image.load('image/siel.png').convert_alpha()
-    nagiimg = pygame.image.load('image/nagi.png').convert_alpha()
+    backimg = pygame.image.load('../image/moriyama.jpg').convert()
+    sielimg = pygame.image.load('../image/siel.png').convert_alpha()
+    nagiimg = pygame.image.load('../image/nagi.png').convert_alpha()
 
     cur_pos = (0, 0)
     siels_pos = []

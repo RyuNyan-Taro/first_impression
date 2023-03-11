@@ -8,8 +8,8 @@ SCR_RECT = Rect(0, 0, 640, 480)
 class MySprite(pygame.sprite.Sprite):
     def __init__(self, x, y, vx, vy, img_num):
         pygame.sprite.Sprite.__init__(self)
-        sielimg = pygame.image.load('image/siel.png').convert_alpha()
-        nagiimg = pygame.image.load('image/nagi.png').convert_alpha()
+        sielimg = pygame.image.load('../image/siel.png').convert_alpha()
+        nagiimg = pygame.image.load('../image/nagi.png').convert_alpha()
         self.images = (sielimg, nagiimg)
         width = self.images[0].get_width()
         height = self.images[0].get_height()

@@ -1,10 +1,8 @@
-import random
-
 import pygame
 from pygame.locals import *
 import sys
 
-SCR_RECT = Rect(0, 0, 640*2, 480*2)
+SCR_RECT = Rect(0, 0, 640, 480)
 
 
 class MySprite(pygame.sprite.Sprite):
@@ -25,44 +23,36 @@ class MySprite(pygame.sprite.Sprite):
             self.vy = -self.vy
         self.rect = self.rect.clamp(SCR_RECT)
 
-
-def initial_pos_speed() -> tuple[int, int, float, float]:
-    """Return random x and y pos, and vx and vy speed"""
-
-    def initial_speed():
-        speed = round(random.triangular(1, 5, 1), 2)
-        multiply = random.randint(0, 1)
-        speed = speed * ((-1) ** multiply)
-
-        return speed
-
-    x_pos = random.randint(0, SCR_RECT.size[0])
-    y_pos = random.randint(0, SCR_RECT.size[1])
-    vx_speed = initial_speed()
-    vy_speed = initial_speed()
-
-    return x_pos, y_pos, vx_speed, vy_speed
+    def draw(self, screen):
+        screen.blit(self.image, self.rect)
 
 
 def main():
     pygame.init()
     screen = pygame.display.set_mode(SCR_RECT.size)
-    pygame.display.set_caption(u'How to use sprite group')
+    pygame.display.set_caption(u'using of splite')
 
-    group = pygame.sprite.RenderUpdates()
-    for _i in range(20):
-        my_sprite = MySprite('image/python.png', *initial_pos_speed())
-        group.add(my_sprite)
+    python1 = MySprite('../image/python.png', 0, 0, 2, 2)
+    python2 = MySprite('../image/python.png', 10, 10, 5, 5)
+    python3 = MySprite('../image/python.png', 320, 240, -2, 3)
 
     clock = pygame.time.Clock()
 
     while True:
         clock.tick(60)
+
         screen.fill((0, 0, 255))
 
-        group.update()
-        group.draw(screen)
+        python1.update()
+        python2.update()
+        python3.update()
+
+        python1.draw(screen)
+        python2.draw(screen)
+        python3.draw(screen)
+
         pygame.display.update()
+
         for event in pygame.event.get():
             if event.type == QUIT:
                 sys.exit()

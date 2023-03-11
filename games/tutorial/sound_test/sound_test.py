@@ -9,15 +9,15 @@ def main():
     pygame.init()
     screen = pygame.display.set_mode((SCR_WIDTH, SCR_HEIGHT))
     pygame.display.set_caption(u'sound_test')
-    img = pygame.image.load('image/python.png').convert_alpha()
+    img = pygame.image.load('../image/python.png').convert_alpha()
     img_rect = img.get_rect()
 
-    hit_sound = pygame.mixer.Sound('sound/hit.wav')
+    hit_sound = pygame.mixer.Sound('../sound/hit.wav')
 
     vx = vy = 300
     clock = pygame.time.Clock()
 
-    pygame.mixer.music.load('sound/tam-n11.mp3')
+    pygame.mixer.music.load('../sound/tam-n11.mp3')
     pygame.mixer.music.play(-1)
 
     while True:

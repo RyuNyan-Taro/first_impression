@@ -10,8 +10,8 @@ def main():
     screen = pygame.display.set_mode(SCREEN_SIZE)
     pygame.display.set_caption('draw_image')
 
-    backimg = pygame.image.load('image/moriyama.jpg')
-    pythonimg = pygame.image.load('image/python.png').convert_alpha()
+    backimg = pygame.image.load('../image/moriyama.jpg')
+    pythonimg = pygame.image.load('../image/python.png').convert_alpha()
 
     while True:
         screen.blit(backimg, (0, 0))

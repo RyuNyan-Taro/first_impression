@@ -30,9 +30,9 @@ def main():
     pygame.display.set_caption(u'How to use sprite group')
 
     # create sprite
-    python1 = MySprite('image/python.png', 0, 0, 2, 2)
-    python2 = MySprite('image/python.png', 10, 10, 5, 5)
-    python3 = MySprite('image/python.png', 320, 240, -2, 3)
+    python1 = MySprite('../image/python.png', 0, 0, 2, 2)
+    python2 = MySprite('../image/python.png', 10, 10, 5, 5)
+    python3 = MySprite('../image/python.png', 320, 240, -2, 3)
 
     group = pygame.sprite.RenderUpdates()
     group.add(python1)

@@ -10,7 +10,7 @@ def main():
     screen = pygame.display.set_mode(SCREEN_SIZE)
     pygame.display.set_caption(u'key_event')
 
-    img = pygame.image.load('image/python.png').convert_alpha()
+    img = pygame.image.load('../image/python.png').convert_alpha()
     img_rect = img.get_rect()
     img_rect.center = (320, 240)
 

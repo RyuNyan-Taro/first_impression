@@ -11,8 +11,8 @@ def main():
     pygame.display.set_caption(u'mouse_event')
 
     # image
-    backimg = pygame.image.load('image/moriyama.jpg').convert()
-    pythonimg = pygame.image.load('image/python.png').convert_alpha()
+    backimg = pygame.image.load('../image/moriyama.jpg').convert()
+    pythonimg = pygame.image.load('../image/python.png').convert_alpha()
 
     cur_pos = (0, 0)
     pythons_pos = []
