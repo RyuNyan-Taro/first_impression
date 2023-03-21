@@ -30,7 +30,6 @@ def main():
     group = pygame.sprite.RenderUpdates()
     MySprite.containers = group
 
-
     python1 = MySprite('../image/python.png', 0, 0, 2, 2)
     python2 = MySprite('../image/python.png', 10, 10, 5, 5)
     python3 = MySprite('../image/python.png', 0, 0, 5, 5)
